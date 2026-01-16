@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="de.entwicklertools.installationsuebersicht.app.MainController" spacing="16">
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16" />
+    </padding>
+    <Label text="Entwicklertools Installationsübersicht" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+    <GridPane hgap="12" vgap="8">
+        <Label text="Vorname:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+        <TextField fx:id="firstNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+        <Label text="Nachname:" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+        <TextField fx:id="lastNameField" GridPane.rowIndex="0" GridPane.columnIndex="3" />
+
+        <Label text="Windowskennung:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+        <TextField fx:id="windowsIdField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+        <Label text="Gerätename:" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+        <TextField fx:id="deviceNameField" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+
+        <Label text="Referat:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+        <ComboBox fx:id="referatBox" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+    </GridPane>
+
+    <TableView fx:id="softwareTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="nameColumn" text="Software" prefWidth="200" />
+            <TableColumn fx:id="vendorColumn" text="Hersteller" prefWidth="180" />
+            <TableColumn fx:id="installedColumn" text="Vorhanden" prefWidth="110" />
+            <TableColumn fx:id="installedVersionColumn" text="Version" prefWidth="140" />
+            <TableColumn fx:id="requiredColumn" text="Benötigt" prefWidth="140" />
+            <TableColumn fx:id="licenseColumn" text="Lizenzpflichtig" prefWidth="140" />
+        </columns>
+    </TableView>
+
+    <HBox spacing="12">
+        <Button fx:id="saveLocalButton" text="Lokal speichern" onAction="#handleSaveLocal" />
+        <Button fx:id="exportCsvButton" text="CSV exportieren" onAction="#handleExportCsv" />
+        <Button fx:id="exportExcelButton" text="Excel exportieren" onAction="#handleExportExcel" />
+        <Button fx:id="exportPdfButton" text="PDF exportieren" onAction="#handleExportPdf" />
+    </HBox>
+</VBox>
