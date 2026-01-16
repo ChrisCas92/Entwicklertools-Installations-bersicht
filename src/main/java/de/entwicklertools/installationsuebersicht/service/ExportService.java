@@ -27,18 +27,8 @@ public class ExportService {
     private static final Logger LOGGER = LogManager.getLogger(ExportService.class);
 
     public void exportCsv(FormData data, Path target) {
-        List<String> metadataHeader = List.of("firstName", "lastName", "windowsId", "deviceName", "referat");
         List<String> header = List.of("name", "vendor", "installed", "installedVersion", "required", "licenseRequired");
         try (OutputStream out = Files.newOutputStream(target)) {
-            out.write((CsvUtil.join(metadataHeader) + System.lineSeparator()).getBytes(StandardCharsets.UTF_8));
-            out.write((CsvUtil.join(List.of(
-                data.getFirstName(),
-                data.getLastName(),
-                data.getWindowsId(),
-                data.getDeviceName(),
-                data.getReferat()
-            )) + System.lineSeparator()).getBytes(StandardCharsets.UTF_8));
-            out.write(System.lineSeparator().getBytes(StandardCharsets.UTF_8));
             out.write((CsvUtil.join(header) + System.lineSeparator()).getBytes(StandardCharsets.UTF_8));
             for (SoftwareEntry entry : data.getSoftwareEntries()) {
                 out.write((CsvUtil.join(List.of(
@@ -57,20 +47,6 @@ public class ExportService {
 
     public void exportExcel(FormData data, Path target) {
         try (XSSFWorkbook workbook = new XSSFWorkbook()) {
-            XSSFSheet metaSheet = workbook.createSheet("Allgemein");
-            Row metaHeader = metaSheet.createRow(0);
-            metaHeader.createCell(0).setCellValue("Vorname");
-            metaHeader.createCell(1).setCellValue("Nachname");
-            metaHeader.createCell(2).setCellValue("Windowskennung");
-            metaHeader.createCell(3).setCellValue("Gerätename");
-            metaHeader.createCell(4).setCellValue("Referat");
-            Row metaValues = metaSheet.createRow(1);
-            metaValues.createCell(0).setCellValue(data.getFirstName());
-            metaValues.createCell(1).setCellValue(data.getLastName());
-            metaValues.createCell(2).setCellValue(data.getWindowsId());
-            metaValues.createCell(3).setCellValue(data.getDeviceName());
-            metaValues.createCell(4).setCellValue(data.getReferat());
-
             XSSFSheet sheet = workbook.createSheet("Software");
             int rowIndex = 0;
             Row header = sheet.createRow(rowIndex++);

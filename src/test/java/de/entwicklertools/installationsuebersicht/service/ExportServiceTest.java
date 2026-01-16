@@ -5,9 +5,6 @@ import de.entwicklertools.installationsuebersicht.model.SoftwareEntry;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -45,14 +42,5 @@ class ExportServiceTest {
         assertTrue(Files.size(csv) > 0);
         assertTrue(Files.size(excel) > 0);
         assertTrue(Files.size(pdf) > 0);
-
-        String csvContent = Files.readString(csv);
-        assertTrue(csvContent.contains("firstName;lastName;windowsId;deviceName;referat"));
-        assertTrue(csvContent.contains("Erika;Mustermann;emuster;DEV-02;Ref.93"));
-
-        try (InputStream in = Files.newInputStream(excel);
-             XSSFWorkbook workbook = new XSSFWorkbook(in)) {
-            assertTrue(workbook.getSheet("Allgemein").getRow(1).getCell(0).getStringCellValue().contains("Erika"));
-        }
     }
 }
