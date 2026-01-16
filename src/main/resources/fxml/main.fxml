@@ -11,10 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="de.entwicklertools.installationsuebersicht.app.MainController" spacing="16">
-    <padding>
-        <Insets top="16" right="16" bottom="16" left="16" />
-    </padding>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="de.entwicklertools.installationsuebersicht.app.MainController" spacing="16" padding="16">
     <Label text="Entwicklertools Installationsübersicht" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
 
     <GridPane hgap="12" vgap="8">
