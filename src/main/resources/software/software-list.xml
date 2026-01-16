@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<softwareCatalog>
+    <software>
+        <name>IntelliJ IDEA</name>
+        <vendor>JetBrains</vendor>
+    </software>
+    <software>
+        <name>Visual Studio Code</name>
+        <vendor>Microsoft</vendor>
+    </software>
+    <software>
+        <name>Git</name>
+        <vendor>Git SCM</vendor>
+    </software>
+    <software>
+        <name>Docker Desktop</name>
+        <vendor>Docker Inc.</vendor>
+    </software>
+    <software>
+        <name>Postman</name>
+        <vendor>Postman</vendor>
+    </software>
+</softwareCatalog>
