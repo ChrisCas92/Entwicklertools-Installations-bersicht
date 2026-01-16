@@ -1,16 +1,16 @@
 package de.entwicklertools.installationsuebersicht.service;
 
-import de.entwicklertools.installationsuebersicht.model.FormData;
-import de.entwicklertools.installationsuebersicht.model.SoftwareEntry;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import de.entwicklertools.installationsuebersicht.model.FormData;
+import de.entwicklertools.installationsuebersicht.model.SoftwareEntry;
 
 class UserDataStorageTest {
 
@@ -27,8 +27,8 @@ class UserDataStorageTest {
         data.setDeviceName("DEV-LAPTOP-01");
         data.setReferat("Ref.92");
 
-        SoftwareEntry entry = new SoftwareEntry("Tool;Name", "Vendor \"Quote\"");
-        entry.setInstalled("Ja");
+        SoftwareEntry entry = new SoftwareEntry("Tool;Name");
+        entry.setComment("Ja");
         entry.setInstalledVersion("1.2.3\nbeta");
         entry.setRequired("Benötigt");
         entry.setLicenseRequired("Nein");
@@ -46,8 +46,8 @@ class UserDataStorageTest {
         assertEquals(1, result.getSoftwareEntries().size());
         SoftwareEntry loadedEntry = result.getSoftwareEntries().get(0);
         assertEquals("Tool;Name", loadedEntry.getName());
-        assertEquals("Vendor \"Quote\"", loadedEntry.getVendor());
-        assertEquals("Ja", loadedEntry.getInstalled());
+        assertEquals("system \"Quote\"", loadedEntry.getsystem());
+        assertEquals("Ja", loadedEntry.getComment());
         assertEquals("1.2.3\nbeta", loadedEntry.getInstalledVersion());
         assertEquals("Benötigt", loadedEntry.getRequired());
         assertEquals("Nein", loadedEntry.getLicenseRequired());

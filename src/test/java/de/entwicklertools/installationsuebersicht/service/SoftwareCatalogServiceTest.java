@@ -1,13 +1,13 @@
 package de.entwicklertools.installationsuebersicht.service;
 
-import de.entwicklertools.installationsuebersicht.model.SoftwareEntry;
-import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import de.entwicklertools.installationsuebersicht.model.SoftwareEntry;
 
 class SoftwareCatalogServiceTest {
 
@@ -20,8 +20,8 @@ class SoftwareCatalogServiceTest {
         entries.forEach(entry -> {
             assertNotNull(entry.getName());
             assertTrue(!entry.getName().isBlank());
-            assertNotNull(entry.getVendor());
-            assertTrue(!entry.getVendor().isBlank());
+            assertNotNull(entry.getsystem());
+            assertTrue(!entry.getsystem().isBlank());
         });
     }
 }

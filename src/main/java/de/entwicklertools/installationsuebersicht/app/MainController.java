@@ -1,5 +1,12 @@
 package de.entwicklertools.installationsuebersicht.app;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.entwicklertools.installationsuebersicht.model.FormData;
 import de.entwicklertools.installationsuebersicht.model.SoftwareEntry;
 import de.entwicklertools.installationsuebersicht.service.ExportService;
@@ -17,18 +24,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Optional;
 
 public class MainController {
     private static final Logger LOGGER = LogManager.getLogger(MainController.class);
-    private static final List<String> YES_NO = List.of("Ja", "Nein");
-    private static final List<String> REQUIRED_CHOICES = List.of("Benötigt", "Nicht benötigt");
+    private static final List<String> YES_NO = List.of("Ja", "Nein", "Unbekannt");
+    private static final List<String> REQUIRED_CHOICES = List.of("Installiert", "wird benötigt", "nicht benötigt");
     private static final List<String> REFERAT_CHOICES = List.of("Ref.92", "Ref.93");
+    private static final List<String> OPERATING_SYSTEMS = List.of("Windows 10", "Windows 11");
 
     @FXML
     private TextField firstNameField;
@@ -45,9 +47,9 @@ public class MainController {
     @FXML
     private TableColumn<SoftwareEntry, String> nameColumn;
     @FXML
-    private TableColumn<SoftwareEntry, String> vendorColumn;
+    private TableColumn<SoftwareEntry, String> systemColumn;
     @FXML
-    private TableColumn<SoftwareEntry, String> installedColumn;
+    private TableColumn<SoftwareEntry, String> commentColumn;
     @FXML
     private TableColumn<SoftwareEntry, String> installedVersionColumn;
     @FXML
@@ -65,7 +67,8 @@ public class MainController {
 
     private final SoftwareCatalogService catalogService = new SoftwareCatalogService();
     private final ExportService exportService = new ExportService();
-    private final UserDataStorage storage = new UserDataStorage(Path.of(System.getProperty("user.home"), ".entwicklertools-installationsuebersicht"));
+    private final UserDataStorage storage = new UserDataStorage(
+            Path.of(System.getProperty("user.home"), ".entwicklertools-installationsuebersicht"));
     private final ObservableList<SoftwareEntry> tableData = FXCollections.observableArrayList();
 
     @FXML
@@ -80,21 +83,24 @@ public class MainController {
 
     private void setupTable() {
         nameColumn.setCellValueFactory(cell -> cell.getValue().nameProperty());
-        vendorColumn.setCellValueFactory(cell -> cell.getValue().vendorProperty());
-        installedColumn.setCellValueFactory(cell -> cell.getValue().installedProperty());
+        systemColumn.setCellValueFactory(cell -> cell.getValue().systemProperty());
         installedVersionColumn.setCellValueFactory(cell -> cell.getValue().installedVersionProperty());
         requiredColumn.setCellValueFactory(cell -> cell.getValue().requiredProperty());
         licenseColumn.setCellValueFactory(cell -> cell.getValue().licenseRequiredProperty());
+        commentColumn.setCellValueFactory(cell -> cell.getValue().commentProperty());
 
-        installedColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(FXCollections.observableArrayList(YES_NO)));
-        requiredColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(FXCollections.observableArrayList(REQUIRED_CHOICES)));
+        systemColumn.setCellFactory(
+                ChoiceBoxTableCell.forTableColumn(FXCollections.observableArrayList(OPERATING_SYSTEMS)));
+        requiredColumn
+                .setCellFactory(ChoiceBoxTableCell.forTableColumn(FXCollections.observableArrayList(REQUIRED_CHOICES)));
         licenseColumn.setCellFactory(ChoiceBoxTableCell.forTableColumn(FXCollections.observableArrayList(YES_NO)));
         installedVersionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        commentColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        installedColumn.setOnEditCommit(event -> event.getRowValue().setInstalled(event.getNewValue()));
         requiredColumn.setOnEditCommit(event -> event.getRowValue().setRequired(event.getNewValue()));
         licenseColumn.setOnEditCommit(event -> event.getRowValue().setLicenseRequired(event.getNewValue()));
         installedVersionColumn.setOnEditCommit(event -> event.getRowValue().setInstalledVersion(event.getNewValue()));
+        commentColumn.setOnEditCommit(event -> event.getRowValue().setComment(event.getNewValue()));
 
         softwareTable.setItems(tableData);
         softwareTable.setEditable(true);

@@ -11,7 +11,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="de.entwicklertools.installationsuebersicht.app.MainController" spacing="16" padding="16">
+<VBox xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml" fx:controller="de.entwicklertools.installationsuebersicht.app.MainController" spacing="16">
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+
     <Label text="Entwicklertools Installationsübersicht" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
 
     <GridPane hgap="12" vgap="8">
@@ -34,11 +40,11 @@
     <TableView fx:id="softwareTable" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="nameColumn" text="Software" prefWidth="200" />
-            <TableColumn fx:id="vendorColumn" text="Hersteller" prefWidth="180" />
-            <TableColumn fx:id="installedColumn" text="Vorhanden" prefWidth="110" />
+            <TableColumn fx:id="systemColumn" text="Betriebssystem" prefWidth="180" />
             <TableColumn fx:id="installedVersionColumn" text="Version" prefWidth="140" />
-            <TableColumn fx:id="requiredColumn" text="Benötigt" prefWidth="140" />
+            <TableColumn fx:id="requiredColumn" text="Status" prefWidth="140" />
             <TableColumn fx:id="licenseColumn" text="Lizenzpflichtig" prefWidth="140" />
+            <TableColumn fx:id="commentColumn" text="Bemerkung" prefWidth="360" />
         </columns>
     </TableView>
 

@@ -5,31 +5,31 @@ import javafx.beans.property.StringProperty;
 
 public class SoftwareEntry {
     private final StringProperty name = new SimpleStringProperty();
-    private final StringProperty vendor = new SimpleStringProperty();
-    private final StringProperty installed = new SimpleStringProperty();
+    private final StringProperty system = new SimpleStringProperty();
     private final StringProperty installedVersion = new SimpleStringProperty();
     private final StringProperty required = new SimpleStringProperty();
     private final StringProperty licenseRequired = new SimpleStringProperty();
+    private final StringProperty comment = new SimpleStringProperty();
 
-    public SoftwareEntry(String name, String vendor) {
+    public SoftwareEntry(String name) {
         this.name.set(name);
-        this.vendor.set(vendor);
-        this.installed.set("");
+        this.system.set("");
         this.installedVersion.set("");
         this.required.set("");
         this.licenseRequired.set("");
+        this.comment.set("");
     }
 
     public StringProperty nameProperty() {
         return name;
     }
 
-    public StringProperty vendorProperty() {
-        return vendor;
+    public StringProperty systemProperty() {
+        return system;
     }
 
-    public StringProperty installedProperty() {
-        return installed;
+    public StringProperty commentProperty() {
+        return comment;
     }
 
     public StringProperty installedVersionProperty() {
@@ -48,16 +48,16 @@ public class SoftwareEntry {
         return name.get();
     }
 
-    public String getVendor() {
-        return vendor.get();
+    public String getsystem() {
+        return system.get();
     }
 
-    public String getInstalled() {
-        return installed.get();
+    public String getComment() {
+        return comment.get();
     }
 
-    public void setInstalled(String value) {
-        installed.set(value);
+    public void setComment(String value) {
+        comment.set(value);
     }
 
     public String getInstalledVersion() {

@@ -1,11 +1,5 @@
 package de.entwicklertools.installationsuebersicht.service;
 
-import de.entwicklertools.installationsuebersicht.model.FormData;
-import de.entwicklertools.installationsuebersicht.model.SoftwareEntry;
-import de.entwicklertools.installationsuebersicht.util.CsvUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,10 +9,17 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import de.entwicklertools.installationsuebersicht.model.FormData;
+import de.entwicklertools.installationsuebersicht.model.SoftwareEntry;
+import de.entwicklertools.installationsuebersicht.util.CsvUtil;
+
 public class UserDataStorage {
     private static final Logger LOGGER = LogManager.getLogger(UserDataStorage.class);
     private static final String METADATA_HEADER = "firstName;lastName;windowsId;deviceName;referat";
-    private static final String SOFTWARE_HEADER = "name;vendor;installed;installedVersion;required;licenseRequired";
+    private static final String SOFTWARE_HEADER = "name;system;installed;installedVersion;required;licenseRequired";
 
     private final Path baseDirectory;
 
@@ -58,12 +59,12 @@ public class UserDataStorage {
                 }
                 List<String> valuesList = CsvUtil.parseLine(row);
                 String name = CsvUtil.valueAt(valuesList, 0);
-                String vendor = CsvUtil.valueAt(valuesList, 1);
+                String system = CsvUtil.valueAt(valuesList, 1);
                 SoftwareEntry entry = catalog.stream()
-                    .filter(item -> item.getName().equals(name))
-                    .findFirst()
-                    .orElseGet(() -> new SoftwareEntry(name, vendor));
-                entry.setInstalled(CsvUtil.valueAt(valuesList, 2));
+                        .filter(item -> item.getName().equals(name))
+                        .findFirst()
+                        .orElseGet(() -> new SoftwareEntry(name));
+                entry.setComment(CsvUtil.valueAt(valuesList, 2));
                 entry.setInstalledVersion(CsvUtil.valueAt(valuesList, 3));
                 entry.setRequired(CsvUtil.valueAt(valuesList, 4));
                 entry.setLicenseRequired(CsvUtil.valueAt(valuesList, 5));
@@ -87,25 +88,23 @@ public class UserDataStorage {
             writer.write(METADATA_HEADER);
             writer.newLine();
             writer.write(CsvUtil.join(List.of(
-                data.getFirstName(),
-                data.getLastName(),
-                data.getWindowsId(),
-                data.getDeviceName(),
-                data.getReferat()
-            )));
+                    data.getFirstName(),
+                    data.getLastName(),
+                    data.getWindowsId(),
+                    data.getDeviceName(),
+                    data.getReferat())));
             writer.newLine();
             writer.newLine();
             writer.write(SOFTWARE_HEADER);
             writer.newLine();
             for (SoftwareEntry entry : data.getSoftwareEntries()) {
                 writer.write(CsvUtil.join(List.of(
-                    entry.getName(),
-                    entry.getVendor(),
-                    entry.getInstalled(),
-                    entry.getInstalledVersion(),
-                    entry.getRequired(),
-                    entry.getLicenseRequired()
-                )));
+                        entry.getName(),
+                        entry.getsystem(),
+                        entry.getComment(),
+                        entry.getInstalledVersion(),
+                        entry.getRequired(),
+                        entry.getLicenseRequired())));
                 writer.newLine();
             }
         } catch (IOException ex) {

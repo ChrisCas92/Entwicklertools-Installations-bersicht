@@ -1,14 +1,14 @@
 package de.entwicklertools.installationsuebersicht.service;
 
-import de.entwicklertools.installationsuebersicht.model.FormData;
-import de.entwicklertools.installationsuebersicht.model.SoftwareEntry;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import de.entwicklertools.installationsuebersicht.model.FormData;
+import de.entwicklertools.installationsuebersicht.model.SoftwareEntry;
 
 class ExportServiceTest {
 
@@ -24,8 +24,8 @@ class ExportServiceTest {
         data.setWindowsId("emuster");
         data.setDeviceName("DEV-02");
         data.setReferat("Ref.93");
-        SoftwareEntry entry = new SoftwareEntry("Git", "Git SCM");
-        entry.setInstalled("Nein");
+        SoftwareEntry entry = new SoftwareEntry("Git");
+        entry.setComment("Nein");
         entry.setInstalledVersion("");
         entry.setRequired("Benötigt");
         entry.setLicenseRequired("Nein");
