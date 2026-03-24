@@ -28,3 +28,7 @@ Die Eingaben werden pro Windowskennung unter `~/.entwicklertools-installationsue
 ## Softwarekatalog
 
 Die vorgefertigte Liste der Software/Anwendungen wird aus `src/main/resources/software/software-list.xml` geladen.
+
+## Quarkus config-doc plugin lab
+
+A dedicated sample project is available at `quarkus-config-doc-plugin-lab/` with automated tests and full documentation in `README.MD`.

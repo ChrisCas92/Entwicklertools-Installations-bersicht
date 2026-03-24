@@ -25,3 +25,6 @@ replay_pid*
 
 # Maven
 /target/
+
+# Maven build output in subprojects
+**/target/
